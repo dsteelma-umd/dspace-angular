@@ -81,4 +81,22 @@
               class="btn btn-primary">{{messagePrefix + '.goToGroups' | translate}}</button>
     </div>
   </div>
+  <ng-container *ngVar="(ldapInfo | async) as ldapInfoRD">
+    <div *ngIf="ldapInfoRD?.hasSucceeded">
+      <h3>UM Directory Information</h3>
+      <ul>
+        <li>Name: {{ ldapInfoRD.payload.lastName }}, {{ ldapInfoRD.payload.firstName }}</li>
+        <li>Email: {{ ldapInfoRD.payload.email }}</li>
+        <li>Phone: {{ ldapInfoRD.payload.phone }}</li>
+        <li>Faculty: {{ ldapInfoRD.payload.isFaculty }}</li>
+        <li>UM Appt:
+          <ul>
+            <li *ngFor="let umAppt of ldapInfoRD.payload.umAppointments">
+              {{ umAppt }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
 </div>

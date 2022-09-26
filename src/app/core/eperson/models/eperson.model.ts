@@ -1,3 +1,4 @@
+import { Link } from '@material-ui/core';
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../../cache/builders/build-decorators';
@@ -9,6 +10,8 @@ import { HALLink } from '../../shared/hal-link.model';
 import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
 import { GROUP } from './group.resource-type';
+import { LdapInfo } from './ldap-info.model';
+import { LDAP_INFO } from './ldap-info.resource-type';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -73,6 +76,7 @@ export class EPerson extends DSpaceObject {
   _links: {
     self: HALLink;
     groups: HALLink;
+    ldapInfo: HALLink;
   };
 
   /**
@@ -82,4 +86,6 @@ export class EPerson extends DSpaceObject {
   @link(GROUP, true)
   public groups?: Observable<RemoteData<PaginatedList<Group>>>;
 
+  @link(LDAP_INFO, false)
+  public ldapInfo?: Observable<RemoteData<LdapInfo>>;
 }

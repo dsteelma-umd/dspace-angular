@@ -67,6 +67,7 @@ import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { EPersonDataService } from './eperson/eperson-data.service';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
+import { LdapInfo } from './eperson/models/ldap-info.model';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
@@ -178,6 +179,7 @@ import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { LdapInfoDataService } from './eperson/ldap-info-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -303,6 +305,7 @@ const PROVIDERS = [
   VocabularyTreeviewService,
   SequenceService,
   GroupDataService,
+  LdapInfoDataService,
   FeedbackDataService,
   ResearcherProfileService,
   ProfileClaimService,
@@ -327,6 +330,7 @@ export const models =
     Community,
     EPerson,
     Group,
+    LdapInfo,
     ResourcePolicy,
     MetadataSchema,
     MetadataField,

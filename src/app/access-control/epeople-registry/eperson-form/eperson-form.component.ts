@@ -7,14 +7,17 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, of, pipe, Subscription } from 'rxjs';
 import { debounceTime, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { LdapInfoDataService } from '../../../core/eperson/ldap-info-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
+import { LdapInfo } from '../../../core/eperson/models/ldap-info.model';
+
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
@@ -145,6 +148,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   groups: Observable<RemoteData<PaginatedList<Group>>>;
 
+  ldapInfo: Observable<RemoteData<LdapInfo | NoContent>>;
+
   /**
    * Pagination config used to display the list of groups
    */
@@ -173,6 +178,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     protected changeDetectorRef: ChangeDetectorRef,
     public epersonService: EPersonDataService,
     public groupsDataService: GroupDataService,
+    public ldapInfoDataService: LdapInfoDataService,
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
@@ -298,6 +304,21 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         switchMap(([eperson, findListOptions]) => {
           if (eperson != null) {
             return this.groupsDataService.findAllByHref(eperson._links.groups.href, findListOptions, true, true, followLink('object'));
+          }
+          return observableOf(undefined);
+        })
+      );
+
+      this.ldapInfo = activeEPerson$.pipe(
+        switchMap((eperson) => {
+          if (eperson != null) {
+            let result = this.ldapInfoDataService.getLdapInfo(eperson, true, true);
+            return result;
+            // let mockLdapInfo = new LdapInfo();
+            // mockLdapInfo.firstName = 'Foo';
+            // mockLdapInfo.lastName = 'bar';
+            // let ldapResult = observableOf(new RemoteData(0, 0, 0, undefined, null, mockLdapInfo));
+            // return ldapResult;
           }
           return observableOf(undefined);
         })
