@@ -24,6 +24,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { LdapInfoDataServiceStub } from '../../../shared/testing/ldap-info-data-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -31,6 +32,7 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { LdapInfoDataService } from 'src/app/core/eperson/ldap-info-data.service';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -42,6 +44,7 @@ describe('EPersonFormComponent', () => {
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
+  let ldapInfoDataService: LdapInfoDataServiceStub;
   let epersonRegistrationService: EpersonRegistrationService;
 
   let paginationService;
@@ -195,6 +198,7 @@ describe('EPersonFormComponent', () => {
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
+        { provide: LdapInfoDataService, useValue: LdapInfoDataServiceStub },
         { provide: FormBuilderService, useValue: builderService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
