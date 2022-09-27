@@ -82,7 +82,7 @@
     </div>
   </div>
   <ng-container *ngVar="(ldapInfo | async) as ldapInfoRD">
-    <div *ngIf="ldapInfoRD?.hasSucceeded">
+    <div *ngIf="ldapInfoRD.hasSucceeded && !ldapInfoRD.hasNoContent">
       <h3>UM Directory Information</h3>
       <ul>
         <li>Name: {{ ldapInfoRD.payload.lastName }}, {{ ldapInfoRD.payload.firstName }}</li>
