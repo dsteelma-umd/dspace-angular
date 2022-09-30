@@ -19,7 +19,7 @@ import { UNIT } from './models/unit.resource-type';
 @dataService(UNIT)
 export class UnitDataService extends DataService<Unit> {
 
-  protected linkPath: string = 'units'
+  protected linkPath = 'units';
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Unit>,
