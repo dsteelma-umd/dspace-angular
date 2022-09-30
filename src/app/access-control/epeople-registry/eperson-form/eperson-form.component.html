@@ -96,6 +96,23 @@
             </li>
           </ul>
         </li>
+        <div *ngIf="ldapInfoRD.payload.groups.length > 0">
+          <li>Groups:</li>
+          <ul>
+            <li *ngFor="let group of ldapInfoRD.payload.groups">
+              <a (click)="groupsDataService.startEditingNewGroup(group)"
+                [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">{{ group.name }}</a>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="ldapInfoRD.payload.unmatchedUnits.length > 0">
+          <li>Unmatched Units:</li>
+          <ul>
+            <li *ngFor="let unmatchedUnit of ldapInfoRD.payload.unmatchedUnits">
+              {{ unmatchedUnit }}
+            </li>
+          </ul>
+        </div>
       </ul>
     </div>
   </ng-container>

@@ -11,6 +11,7 @@ import { EPerson } from './eperson.model';
 import { EPERSON } from './eperson.resource-type';
 import { LDAP_INFO } from './ldap-info.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { Group } from './group.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -76,6 +77,12 @@ export class LdapInfo extends DSpaceObject {
     // epersons: HALLink;
     // object: HALLink;
   };
+
+  @autoserialize
+  public groups: Group[];
+
+  @autoserialize
+  public unmatchedUnits: string[];
 
   // /**
   //  * The list of Groups this Group is part of
