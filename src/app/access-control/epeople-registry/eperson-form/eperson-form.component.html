@@ -105,6 +105,14 @@
             </li>
           </ul>
         </div>
+        <div *ngIf="ldapInfoRD.payload.matchedUnits.length > 0">
+          <li>Units:</li>
+          <ul>
+            <li *ngFor="let unit of ldapInfoRD.payload.matchedUnits">
+              {{ unit.name }}
+            </li>
+          </ul>
+        </div>
         <div *ngIf="ldapInfoRD.payload.unmatchedUnits.length > 0">
           <li>Unmatched Units:</li>
           <ul>

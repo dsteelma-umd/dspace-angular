@@ -13,9 +13,11 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { UnitDataService } from '../../../core/eperson/unit-data.service';
 import { LdapInfoDataService } from '../../../core/eperson/ldap-info-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
+import { Unit } from '../../../core/eperson/models/unit.model';
 import { LdapInfo } from '../../../core/eperson/models/ldap-info.model';
 
 import {
@@ -178,6 +180,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     protected changeDetectorRef: ChangeDetectorRef,
     public epersonService: EPersonDataService,
     public groupsDataService: GroupDataService,
+    public unitDataService: UnitDataService,
     public ldapInfoDataService: LdapInfoDataService,
     private formBuilderService: FormBuilderService,
     private translateService: TranslateService,
