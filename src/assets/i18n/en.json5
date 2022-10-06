@@ -520,6 +520,10 @@
   "admin.access-control.groups.form.return": "Back",
 
 
+  "admin.access-control.units.title": "Units",
+
+  "admin.access-control.units.breadcrumbs": "Units",
+
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -2589,6 +2593,8 @@
   "menu.section.access_control_groups": "Groups",
 
   "menu.section.access_control_people": "People",
+
+  "menu.section.access_control_units": "Units",
 
 
 
