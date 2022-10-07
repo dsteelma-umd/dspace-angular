@@ -183,6 +183,7 @@ import { OrcidHistoryDataService } from './orcid/orcid-history-data.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
+import { UnitDataService } from './eperson/unit-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -310,6 +311,7 @@ const PROVIDERS = [
   GroupDataService,
   // UMD Customization for LIBDRUM-660
   LdapDataService,
+  UnitDataService,
   // End UMD Customization for LIBDRUM-660
   FeedbackDataService,
   ResearcherProfileService,

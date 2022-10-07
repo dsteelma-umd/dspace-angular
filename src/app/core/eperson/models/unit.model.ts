@@ -34,5 +34,5 @@ export class Unit extends DSpaceObject {
    * Will be undefined unless the groups {@link HALLink} has been resolved.
    */
   @link(GROUP, true)
-  public subgroups?: Observable<RemoteData<PaginatedList<Group>>>;
+  public groups?: Observable<RemoteData<PaginatedList<Group>>>;
 }

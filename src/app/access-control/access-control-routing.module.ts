@@ -8,7 +8,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { GroupPageGuard } from './group-registry/group-page.guard';
 import { GroupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { UnitsRegistryComponent } from './units-registry/units-registry.component';
+import { UnitsRegistryComponent } from './unit-registry/units-registry.component';
 
 @NgModule({
   imports: [
