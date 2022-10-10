@@ -28,10 +28,4 @@ export class UnitDtoModel {
    * List of groups of this unit
    */
   public groups: PaginatedList<Group>;
-
-  /**
-   * List of members of this group
-   */
-  public epersons: PaginatedList<EPerson>;
-
 }

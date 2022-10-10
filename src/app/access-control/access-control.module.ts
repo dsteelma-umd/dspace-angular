@@ -10,6 +10,7 @@ import { MembersListComponent } from './group-registry/group-form/members-list/m
 import { SubgroupsListComponent } from './group-registry/group-form/subgroup-list/subgroups-list.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { FormModule } from '../shared/form/form.module';
+import { UnitFormComponent } from './unit-registry/unit-form/unit-form.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { FormModule } from '../shared/form/form.module';
     GroupsRegistryComponent,
     GroupFormComponent,
     SubgroupsListComponent,
-    MembersListComponent
+    MembersListComponent,
+    UnitFormComponent,
   ]
 })
 /**

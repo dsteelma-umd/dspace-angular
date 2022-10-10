@@ -551,17 +551,17 @@
 //  "admin.access-control.units.table.collectionOrCommunity": "Collection/Community",
 //
 //  "admin.access-control.units.table.members": "Members",
-//
-//  "admin.access-control.units.table.edit": "Edit",
-//
-//  "admin.access-control.units.table.edit.buttons.edit": "Edit \"{{name}}\"",
-//
-//  "admin.access-control.units.table.edit.buttons.remove": "Delete \"{{name}}\"",
-//
+
+  "admin.access-control.units.table.edit": "Edit",
+
+  "admin.access-control.units.table.edit.buttons.edit": "Edit \"{{name}}\"",
+
+  "admin.access-control.units.table.edit.buttons.remove": "Delete \"{{name}}\"",
+
   "admin.access-control.units.no-items": "No units found with this in their name or this as UUID",
-//
-//  "admin.access-control.units.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-//
+
+  "admin.access-control.units.notification.deleted.success": "Successfully deleted unit \"{{name}}\"",
+
 //  "admin.access-control.units.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
 //
 //  "admin.access-control.units.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
@@ -573,11 +573,13 @@
 //  "admin.access-control.units.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
 //
 //  "admin.access-control.units.form.head.create": "Create group",
-//
-//  "admin.access-control.units.form.head.edit": "Edit group",
-//
-//  "admin.access-control.units.form.groupName": "Group name",
-//
+
+  "admin.access-control.units.form.head.edit": "Edit unit",
+
+  "admin.access-control.units.form.unitName": "Unit name",
+
+  "admin.access-control.units.form.facultyOnly": "Faculty Only",
+
 //  "admin.access-control.units.form.groupCommunity": "Community or Collection",
 //
 //  "admin.access-control.units.form.groupDescription": "Description",
@@ -591,21 +593,21 @@
 //  "admin.access-control.units.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
 //
 //  "admin.access-control.units.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
-//
-//  "admin.access-control.units.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
-//
-//  "admin.access-control.units.form.actions.delete": "Delete Group",
-//
-//  "admin.access-control.units.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
-//
-//  "admin.access-control.units.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
-//
-//  "admin.access-control.units.form.delete-group.modal.cancel": "Cancel",
-//
-//  "admin.access-control.units.form.delete-group.modal.confirm": "Delete",
-//
-//  "admin.access-control.units.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
-//
+
+  "admin.access-control.units.form.notification.edited.success": "Successfully edited Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.actions.delete": "Delete Unit",
+
+  "admin.access-control.units.form.delete-unit.modal.header": "Delete Unit \"{{ dsoName }}\"",
+
+  "admin.access-control.units.form.delete-unit.modal.info": "Are you sure you want to delete Unit \"{{ dsoName }}\"",
+
+  "admin.access-control.units.form.delete-unit.modal.cancel": "Cancel",
+
+  "admin.access-control.units.form.delete-unit.modal.confirm": "Delete",
+
+  "admin.access-control.units.form.notification.deleted.success": "Successfully deleted unit \"{{ name }}\"",
+
 //  "admin.access-control.units.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
 //
 //  "admin.access-control.units.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
@@ -695,8 +697,8 @@
 //  "admin.access-control.units.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
 //
 //  "admin.access-control.units.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
-//
-//  "admin.access-control.units.form.return": "Back",
+
+  "admin.access-control.units.form.return": "Back",
 
 
   "admin.search.breadcrumbs": "Administrative Search",

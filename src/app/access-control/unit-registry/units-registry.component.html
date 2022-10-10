@@ -52,7 +52,7 @@
               <th scope="col">{{messagePrefix + 'table.name' | translate}}</th>
 <!--              <th scope="col">{{messagePrefix + 'table.collectionOrCommunity' | translate}}</th> -->
 <!--              <th scope="col">{{messagePrefix + 'table.members' | translate}}</th> -->
-<!--              <th>{{messagePrefix + 'table.edit' | translate}}</th> -->
+              <th>{{messagePrefix + 'table.edit' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -60,14 +60,14 @@
               <td>{{unitDto.unit.id}}</td>
               <td>{{unitDto.unit.name}}</td>
 <!--              <td>{{(groupDto.group.object | async)?.payload?.name}}</td>
-              <td>{{groupDto.epersons?.totalElements + groupDto.subgroups?.totalElements}}</td>
+              <td>{{groupDto.epersons?.totalElements + groupDto.subgroups?.totalElements}}</td> -->
               <td>
                 <div class="btn-group edit-field">
-                  <ng-container [ngSwitch]="groupDto.ableToEdit">
+                  <ng-container [ngSwitch]="unitDto.ableToEdit">
                     <button *ngSwitchCase="true"
-                      [routerLink]="groupService.getGroupEditPageRouterLink(groupDto.group)"
+                      [routerLink]="unitService.getUnitEditPageRouterLink(unitDto.unit)"
                       class="btn btn-outline-primary btn-sm btn-edit"
-                      title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: groupDto.group.name} }}"
+                      title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: unitDto.unit.name} }}"
                     >
                       <i class="fas fa-edit fa-fw"></i>
                     </button>
@@ -80,13 +80,13 @@
                       <i class="fas fa-edit fa-fw"></i>
                     </button>
                   </ng-container>
-                  <button *ngIf="!groupDto.group?.permanent && groupDto.ableToDelete"
-                          (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
-                          title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: groupDto.group.name} }}">
+                  <button *ngIf="unitDto.ableToDelete"
+                          (click)="deleteUnit(unitDto)" class="btn btn-outline-danger btn-sm btn-delete"
+                          title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: unitDto.unit.name} }}">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
                 </div>
-              </td> -->
+              </td>
             </tr>
             </tbody>
           </table>

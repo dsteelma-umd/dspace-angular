@@ -51,6 +51,7 @@ import { truncatableReducer, TruncatablesState } from './shared/truncatable/trun
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+import { unitRegistryReducer, UnitRegistryState } from './access-control/unit-registry/unit-registry-reducers';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -71,6 +72,7 @@ export interface AppState {
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
   groupRegistry: GroupRegistryState;
+  unitRegistry: UnitRegistryState;
   correlationId: string;
 }
 
@@ -93,6 +95,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
+  unitRegistry: unitRegistryReducer,
   correlationId: correlationIdReducer
 };
 

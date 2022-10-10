@@ -17,10 +17,13 @@ import { UnitDtoModel } from 'src/app/core/eperson/models/unit-dto.model';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { NoContent } from 'src/app/core/shared/NoContent.model';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-units-registry',
@@ -68,7 +71,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
   pageInfoState$: BehaviorSubject<PageInfo> = new BehaviorSubject<PageInfo>(undefined);
 
   // The search form
-  searchForm;
+  searchForm: FormGroup;
 
   /**
    * A boolean representing if a search is pending
@@ -77,6 +80,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
 
   constructor(public unitService: UnitDataService,
               private translateService: TranslateService,
+              private notificationsService: NotificationsService,
               private formBuilder: FormBuilder,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,) {
@@ -126,13 +130,13 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
               if (hasValue(unit) && !this.deletedUnitsIds.includes(unit.id)) {
                 return observableCombineLatest([
                   this.authorizationService.isAuthorized(FeatureID.CanDelete, unit.self),
-//                  this.canManageGroup$(isSiteAdmin, group),
+                  this.canManageUnit$(isSiteAdmin),
 //                  this.hasLinkedDSO(group),
 //                  this.getSubgroups(group),
 //                  this.getMembers(group)
                 ]).pipe(
-                  map(([canDelete/*, canManageGroup, hasLinkedDSO, subgroups, members*/]:
-                         [boolean/*, boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>*/]) => {
+                  map(([canDelete, canManageUnit, /*hasLinkedDSO, subgroups, members*/]:
+                         [boolean, boolean, /*boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>*/]) => {
 //                      const groupDtoModel: GroupDtoModel = new GroupDtoModel();
 //                      groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
 //                      groupDtoModel.ableToEdit = canManageGroup;
@@ -141,6 +145,7 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
 //                      groupDtoModel.epersons = members.payload;
                       const unitDtoModel: UnitDtoModel = new UnitDtoModel();
                       unitDtoModel.ableToDelete = canDelete;
+                      unitDtoModel.ableToEdit = canManageUnit;
                       unitDtoModel.unit = unit;
                       return unitDtoModel;
                     }
@@ -160,6 +165,38 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
     });
 
     this.subs.push(this.searchSub);
+  }
+
+  /**
+   * Returns an Observable that is true if the unit can be edited by the
+   * current user, false otherwise.
+   *
+   * @param isSiteAdmin true if the user is an administrator, false otherwise
+   * @return an Observable that is true if the unit can be edited by the
+   * current user, falsue otherwise.
+   */
+  canManageUnit$(isSiteAdmin: boolean): Observable<boolean> {
+    // Only admins can manage units (and can manage all Units)
+    return observableOf(isSiteAdmin);
+  }
+
+  /**
+   * Delete Unit
+   */
+   deleteUnit(unit: UnitDtoModel) {
+    if (hasValue(unit.unit.id)) {
+      this.unitService.delete(unit.unit.id).pipe(getFirstCompletedRemoteData())
+        .subscribe((rd: RemoteData<NoContent>) => {
+          if (rd.hasSucceeded) {
+            this.deletedUnitsIds = [...this.deletedUnitsIds, unit.unit.id];
+            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: unit.unit.name }));
+          } else {
+            this.notificationsService.error(
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: unit.unit.name }),
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
+          }
+      });
+    }
   }
 
   /**
@@ -188,5 +225,4 @@ export class UnitsRegistryComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
     this.paginationService.clearPagination(this.config.id);
   }
-
 }

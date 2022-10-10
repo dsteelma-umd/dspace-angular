@@ -36,9 +36,11 @@ import { NoContent } from '../shared/NoContent.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { UNIT } from './models/unit.resource-type';
 import { Unit } from './models/unit.model';
+import { UnitRegistryState } from 'src/app/access-control/unit-registry/unit-registry-reducers';
+import { UnitRegistryCancelUnitAction, UnitRegistryEditUnitAction } from 'src/app/access-control/unit-registry/unit-registry.actions';
 
-// const unitRegistryStateSelector = (state: AppState) => state.unitRegistry;
-// const editGroupSelector = createSelector(unitRegistryStateSelector, (unitRegistryState: UnitRegistryState) => unitRegistryState.editGroup);
+ const unitRegistryStateSelector = (state: AppState) => state.unitRegistry;
+ const editUnitSelector = createSelector(unitRegistryStateSelector, (unitRegistryState: UnitRegistryState) => unitRegistryState.editUnit);
 
 /**
  * Provides methods to retrieve eperson unit resources from the REST API & Unit related CRUD actions.
@@ -171,36 +173,36 @@ export class UnitDataService extends DataService<Unit> {
   //   return this.rdbService.buildFromRequestUUID(requestId);
   // }
 
-  // /**
-  //  * Method to retrieve the group that is currently being edited
-  //  */
-  // public getActiveGroup(): Observable<Group> {
-  //   return this.store.pipe(select(editGroupSelector));
-  // }
+  /**
+   * Method to retrieve the group that is currently being edited
+   */
+  public getActiveUnit(): Observable<Unit> {
+    return this.store.pipe(select(editUnitSelector));
+  }
 
-  // /**
-  //  * Method to cancel editing a group, dispatches a cancel group action
-  //  */
-  // public cancelEditGroup() {
-  //   this.store.dispatch(new GroupRegistryCancelGroupAction());
-  // }
+  /**
+   * Method to cancel editing a unit, dispatches a cancel unit action
+   */
+  public cancelEditUnit() {
+    this.store.dispatch(new UnitRegistryCancelUnitAction());
+  }
 
-  // /**
-  //  * Method to set the group being edited, dispatches an edit group action
-  //  * @param group The group to edit
-  //  */
-  // public editGroup(group: Group) {
-  //   this.store.dispatch(new GroupRegistryEditGroupAction(group));
-  // }
+  /**
+   * Method to set the unit being edited, dispatches an edit unit action
+   * @param unit The Unit to edit
+   */
+  public editUnit(unit: Unit) {
+    this.store.dispatch(new UnitRegistryEditUnitAction(unit));
+  }
 
-  // /**
-  //  * Method that clears a cached groups request
-  //  */
-  // public clearGroupsRequests(): void {
-  //   this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
-  //     this.requestService.removeByHrefSubstring(link);
-  //   });
-  // }
+  /**
+   * Method that clears a cached units request
+   */
+  public clearUnitsRequests(): void {
+    this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
+      this.requestService.removeByHrefSubstring(link);
+    });
+  }
 
   // /**
   //  * Method that clears a cached get subgroups of certain group request
@@ -209,9 +211,9 @@ export class UnitDataService extends DataService<Unit> {
   //   this.requestService.setStaleByHrefSubstring(href);
   // }
 
-  // public getGroupRegistryRouterLink(): string {
-  //   return '/access-control/groups';
-  // }
+  public getUnitRegistryRouterLink(): string {
+    return '/access-control/units';
+  }
 
   // /**
   //  * Change which group is being edited and return the link for the edit page of the new group being edited
@@ -228,21 +230,21 @@ export class UnitDataService extends DataService<Unit> {
   //   return this.getGroupEditPageRouterLinkWithID(newGroup.id);
   // }
 
-  // /**
-  //  * Get Edit page of group
-  //  * @param group Group we want edit page for
-  //  */
-  // public getGroupEditPageRouterLink(group: Group): string {
-  //   return this.getGroupEditPageRouterLinkWithID(group.id);
-  // }
+  /**
+   * Get Edit page of unit
+   * @param unit Unit we want edit page for
+   */
+  public getUnitEditPageRouterLink(unit: Unit): string {
+    return this.getUnitEditPageRouterLinkWithID(unit.id);
+  }
 
-  // /**
-  //  * Get Edit page of group
-  //  * @param groupID Group ID we want edit page for
-  //  */
-  // public getGroupEditPageRouterLinkWithID(groupId: string): string {
-  //   return '/access-control/groups/' + groupId;
-  // }
+  /**
+   * Get Edit page of unit
+   * @param unitID Unit ID we want edit page for
+   */
+  public getUnitEditPageRouterLinkWithID(unitId: string): string {
+    return '/access-control/units/' + unitId;
+  }
 
   // /**
   //  * Extract optional UUID from a string
