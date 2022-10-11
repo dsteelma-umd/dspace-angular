@@ -524,8 +524,8 @@
 
   "admin.access-control.units.breadcrumbs": "Units",
 
-//  "admin.access-control.units.singleGroup.breadcrumbs": "Edit Group",
-//
+  "admin.access-control.units.singleUnit.breadcrumbs": "Edit Unit",
+
 //  "admin.access-control.units.title.singleGroup": "Edit Group",
 //
 //  "admin.access-control.units.title.addGroup": "New Group",
@@ -534,8 +534,8 @@
 
   "admin.access-control.units.head": "Units",
 
-//  "admin.access-control.units.button.add": "Add group",
-//
+  "admin.access-control.units.button.add": "Add unit",
+
   "admin.access-control.units.search.head": "Search units",
 
   "admin.access-control.units.button.see-all": "Browse all",
@@ -571,8 +571,8 @@
 //  "admin.access-control.units.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
 //
 //  "admin.access-control.units.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-//
-//  "admin.access-control.units.form.head.create": "Create group",
+
+  "admin.access-control.units.form.head.create": "Create unit",
 
   "admin.access-control.units.form.head.edit": "Edit unit",
 
@@ -583,11 +583,11 @@
 //  "admin.access-control.units.form.groupCommunity": "Community or Collection",
 //
 //  "admin.access-control.units.form.groupDescription": "Description",
-//
-//  "admin.access-control.units.form.notification.created.success": "Successfully created Group \"{{name}}\"",
-//
-//  "admin.access-control.units.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
-//
+
+  "admin.access-control.units.form.notification.created.success": "Successfully created Unit \"{{name}}\"",
+
+  "admin.access-control.units.form.notification.created.failure": "Failed to create Unit \"{{name}}\"",
+
 //  "admin.access-control.units.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
 //
 //  "admin.access-control.units.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
@@ -1635,6 +1635,8 @@
   "error.validation.emailTaken": "This E-mail is already taken",
 
   "error.validation.groupExists": "This group already exists",
+
+  "error.validation.unitExists": "This unit already exists",
 
 
   "feed.description": "Syndication feed",
