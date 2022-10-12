@@ -29,6 +29,7 @@ import { GroupDtoModel } from 'src/app/core/eperson/models/group-dto.model';
 import { UnitDataService } from 'src/app/core/eperson/unit-data.service';
 import { Unit } from 'src/app/core/eperson/models/unit.model';
 import { UnitGroupDtoModel } from './unit-group-dto.model';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -136,7 +137,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
           return this.groupDataService.findAllByHref(this.unitBeingEdited._links.groups.href, {
               currentPage: currentPagination.currentPage,
               elementsPerPage: currentPagination.pageSize
-            }
+            }, true, true, followLink('object')
           );
         }),
       getAllCompletedRemoteData(),
@@ -154,6 +155,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
               const unitGroupDtoModel: UnitGroupDtoModel = new UnitGroupDtoModel();
               unitGroupDtoModel.group = group;
               unitGroupDtoModel.isInUnit = isInUnit;
+              unitGroupDtoModel.object = group.object;
               return unitGroupDtoModel;
             });
           return dto$;
@@ -265,8 +267,8 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
 
           return this.groupDataService.searchGroups(this.currentSearchQuery, {
             currentPage: paginationOptions.currentPage,
-            elementsPerPage: paginationOptions.pageSize
-          });
+            elementsPerPage: paginationOptions.pageSize,
+          }, true, true, followLink('object'));
         }),
         getAllCompletedRemoteData(),
         map((rd: RemoteData<any>) => {
@@ -283,6 +285,7 @@ export class UnitGroupsListComponent implements OnInit, OnDestroy {
                 const unitGroupDtoModel: UnitGroupDtoModel = new UnitGroupDtoModel();
                 unitGroupDtoModel.group = group;
                 unitGroupDtoModel.isInUnit = isInUnit;
+                unitGroupDtoModel.object = group.object;
                 return unitGroupDtoModel;
               });
             return dto$;

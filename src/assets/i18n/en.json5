@@ -672,8 +672,8 @@
 
   "admin.access-control.units.form.groups-list.table.name": "Name",
 
-//  "admin.access-control.units.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
-//
+  "admin.access-control.units.form.groups-list.table.collectionOrCommunity": "Collection/Community",
+
 //  "admin.access-control.units.form.subgroups-list.table.edit": "Remove / Add",
 //
 //  "admin.access-control.units.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",

@@ -6,4 +6,6 @@ export class UnitGroupDtoModel extends GroupDtoModel {
    * used on.
    */
   public isInUnit: boolean;
+
+  public object?: any;
 }

@@ -40,7 +40,7 @@
         <tr>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
-          <th scope="col">{{messagePrefix + 'table.collectionOrCommunity' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
 <!--          <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th> -->
           <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
@@ -54,7 +54,7 @@
             {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
             {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
           </td>-->
-          <td>{{(groupDto.group.object | async)?.payload?.name}}</td>
+          <td class="align-middle">{{(groupDto.object | async)?.payload?.name}}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
               <button *ngIf="(groupDto.isInUnit)"
@@ -101,6 +101,7 @@
         <tr>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
           <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
+          <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
 <!--          <th scope="col" class="align-middle">{{messagePrefix + '.table.identity' | translate}}</th> -->
           <th class="align-middle">{{messagePrefix + '.table.edit' | translate}}</th>
         </tr>
@@ -114,6 +115,7 @@
             {{messagePrefix + '.table.email' | translate}}: {{ ePerson.eperson.email ? ePerson.eperson.email : '-' }}<br/>
             {{messagePrefix + '.table.netid' | translate}}: {{ ePerson.eperson.netid ? ePerson.eperson.netid : '-' }}
           </td> -->
+          <td class="align-middle">{{(groupDto.object | async)?.payload?.name}}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
               <button (click)="deleteGroupFromUnit(groupDto)"
