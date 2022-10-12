@@ -142,7 +142,6 @@ export class UnitFormComponent implements OnInit, OnDestroy {
         return observableCombineLatest(
           this.authorizationService.isAuthorized(FeatureID.CanDelete, isNotEmpty(unit) ? unit.self : undefined),
           (isAuthorized: ObservedValueOf<Observable<boolean>>) => {
-            console.log(`---isAuthorized=${isAuthorized}`);
             return isAuthorized;
           });
       })
