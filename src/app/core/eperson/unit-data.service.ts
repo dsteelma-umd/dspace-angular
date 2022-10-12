@@ -51,7 +51,7 @@ export class UnitDataService extends DataService<Unit> {
   protected linkPath = 'units';
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';
-  public subgroupsEndpoint = 'groups';
+  public groupsEndpoint = 'groups';
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Unit>,
@@ -143,38 +143,38 @@ export class UnitDataService extends DataService<Unit> {
   //   return this.rdbService.buildFromRequestUUID(requestId);
   // }
 
-  // /**
-  //  * Adds given ePerson as member to given group
-  //  * @param activeGroup   Group we want to add member to
-  //  * @param ePerson       EPerson we want to add as member to given activeGroup
-  //  */
-  // addMemberToGroup(activeGroup: Group, ePerson: EPerson): Observable<RemoteData<Group>> {
-  //   const requestId = this.requestService.generateRequestId();
-  //   const options: HttpOptions = Object.create({});
-  //   let headers = new HttpHeaders();
-  //   headers = headers.append('Content-Type', 'text/uri-list');
-  //   options.headers = headers;
-  //   const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint, ePerson.self, options);
-  //   this.requestService.send(postRequest);
+  /**
+   * Adds given group to given unit
+   * @param activeUnit Unit we want to add member to
+   * @param group group we want to add to given activeUnit
+   */
+  addGroupToUnit(activeUnit: Unit, group: Group): Observable<RemoteData<Unit>> {
+    const requestId = this.requestService.generateRequestId();
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    const postRequest = new PostRequest(requestId, activeUnit.self + '/' + this.groupsEndpoint, group.self, options);
+    this.requestService.send(postRequest);
 
-  //   return this.rdbService.buildFromRequestUUID(requestId);
-  // }
-
-  // /**
-  //  * Deletes a given ePerson from the members of the given active group
-  //  * @param activeGroup   Group we want to delete member from
-  //  * @param ePerson       EPerson we want to delete from members of given activeGroup
-  //  */
-  // deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson): Observable<RemoteData<NoContent>> {
-  //   const requestId = this.requestService.generateRequestId();
-  //   const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint + '/' + ePerson.id);
-  //   this.requestService.send(deleteRequest);
-
-  //   return this.rdbService.buildFromRequestUUID(requestId);
-  // }
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
 
   /**
-   * Method to retrieve the group that is currently being edited
+   * Deletes a given Group from given active unit
+   * @param activeUnit Unit we want to delete member from
+   * @param group Group we want to delete from members of given activeGroup
+   */
+   deleteGroupFromUnit(activeUnit: Unit, group: Group): Observable<RemoteData<NoContent>> {
+    const requestId = this.requestService.generateRequestId();
+    const deleteRequest = new DeleteRequest(requestId, activeUnit.self + '/' + this.groupsEndpoint + '/' + group.id);
+    this.requestService.send(deleteRequest);
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
+  /**
+   * Method to retrieve the unit that is currently being edited
    */
   public getActiveUnit(): Observable<Unit> {
     return this.store.pipe(select(editUnitSelector));
@@ -204,12 +204,12 @@ export class UnitDataService extends DataService<Unit> {
     });
   }
 
-  // /**
-  //  * Method that clears a cached get subgroups of certain group request
-  //  */
-  // public clearGroupLinkRequests(href: string): void {
-  //   this.requestService.setStaleByHrefSubstring(href);
-  // }
+  /**
+   * Method that clears a cached Groups request
+   */
+  public clearGroupLinkRequests(href: string): void {
+    this.requestService.setStaleByHrefSubstring(href);
+  }
 
   public getUnitRegistryRouterLink(): string {
     return '/access-control/units';

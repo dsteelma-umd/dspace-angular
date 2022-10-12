@@ -611,21 +611,21 @@
 //  "admin.access-control.units.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
 //
 //  "admin.access-control.units.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
-//
-//  "admin.access-control.units.form.members-list.head": "EPeople",
-//
-//  "admin.access-control.units.form.members-list.search.head": "Add EPeople",
-//
-//  "admin.access-control.units.form.members-list.button.see-all": "Browse All",
-//
-//  "admin.access-control.units.form.members-list.headMembers": "Current Members",
-//
-//  "admin.access-control.units.form.members-list.search.scope.metadata": "Metadata",
-//
+
+  "admin.access-control.units.form.groups-list.head": "Groups",
+
+  "admin.access-control.units.form.groups-list.search.head": "Add Groups",
+
+  "admin.access-control.units.form.groups-list.button.see-all": "Browse All",
+
+  "admin.access-control.units.form.groups-list.headMembers": "Current Members",
+
+  "admin.access-control.units.form.groups-list.search.scope.metadata": "Metadata",
+
 //  "admin.access-control.units.form.members-list.search.scope.email": "E-mail (exact)",
-//
-//  "admin.access-control.units.form.members-list.search.button": "Search",
-//
+
+  "admin.access-control.units.form.groups-list.search.button": "Search",
+
 //  "admin.access-control.units.form.members-list.table.id": "ID",
 //
 //  "admin.access-control.units.form.members-list.table.name": "Name",
@@ -635,25 +635,25 @@
 //  "admin.access-control.units.form.members-list.table.email": "Email",
 //
 //  "admin.access-control.units.form.members-list.table.netid": "NetID",
-//
-//  "admin.access-control.units.form.members-list.table.edit": "Remove / Add",
-//
+
+  "admin.access-control.units.form.groups-list.table.edit": "Remove / Add",
+
 //  "admin.access-control.units.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-//
-//  "admin.access-control.units.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-//
+
+  "admin.access-control.units.form.groups-list.notification.success.addGroup": "Successfully added group: \"{{name}}\"",
+
 //  "admin.access-control.units.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-//
-//  "admin.access-control.units.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-//
+
+  "admin.access-control.units.form.groups-list.notification.success.deleteGroup": "Successfully deleted group: \"{{name}}\"",
+
 //  "admin.access-control.units.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
 //
 //  "admin.access-control.units.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
 //
 //  "admin.access-control.units.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-//
-//  "admin.access-control.units.form.members-list.no-members-yet": "No members in group yet, search and add.",
-//
+
+  "admin.access-control.units.form.groups-list.no-groups-yet": "No groups in unit yet, search and add.",
+
 //  "admin.access-control.units.form.members-list.no-items": "No EPeople found in that search",
 //
 //  "admin.access-control.units.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
@@ -667,11 +667,11 @@
 //  "admin.access-control.units.form.subgroups-list.headSubgroups": "Current Subgroups",
 //
 //  "admin.access-control.units.form.subgroups-list.search.button": "Search",
-//
-//  "admin.access-control.units.form.subgroups-list.table.id": "ID",
-//
-//  "admin.access-control.units.form.subgroups-list.table.name": "Name",
-//
+
+  "admin.access-control.units.form.groups-list.table.id": "ID",
+
+  "admin.access-control.units.form.groups-list.table.name": "Name",
+
 //  "admin.access-control.units.form.subgroups-list.table.collectionOrCommunity": "Collection/Community",
 //
 //  "admin.access-control.units.form.subgroups-list.table.edit": "Remove / Add",
