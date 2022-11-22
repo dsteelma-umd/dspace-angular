@@ -3,7 +3,7 @@ import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
 import { Item } from 'src/app/core/shared/item.model';
 import { MetadataValue } from 'src/app/core/shared/metadata.models';
 import { ItemMock } from 'src/app/shared/mocks/item.mock';
-import { DatasetJsonLdTransformer } from './json-ld-transfomer';
+import { DatasetJsonLdTransformer } from './json-ld-dataset.transfomer';
 import { emptyDataset, fullDataset } from './mocks/mock-json-ld-items';
 
 describe('DatasetJsonLdTransformer', () => {

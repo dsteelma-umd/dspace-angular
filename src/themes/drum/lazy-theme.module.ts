@@ -57,11 +57,11 @@ import { PrivacyComponent } from './app/info/privacy/privacy.component';
 import { UnitsRegistryComponent } from 'src/app/access-control/unit-registry/units-registry.component';
 import { EmbargoListPageModule } from '../../app/embargo-list/embargo-list-page.module';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
-import { JsonLdComponent } from './app/item-page/json-ld/json-ld.component';
+import { JsonLdDatasetComponent } from './app/item-page/json-ld/json-ld-dataset.component';
 
 const DECLARATIONS = [
   ItemPageComponent,
-  JsonLdComponent,
+  JsonLdDatasetComponent,
   PrivacyComponent,
   UnitsRegistryComponent,
 ];
