@@ -29,12 +29,12 @@ export class JsonLdDatasetComponent implements OnInit, OnDestroy {
     if (transformer.handles(this.item)) {
       let url = this.document.location.href;
       let jsonLd = transformer.asJsonLd(url, this.item);
-      this.jsonLdService.insertJsonLdSchema(this.schemaId, jsonLd);
+      this.jsonLdService.insertJsonLdSchema(this.document, this.schemaId, jsonLd);
     }
   }
 
   ngOnDestroy(): void {
-    this.jsonLdService.removeJsonLdSchema(this.schemaId);
+    this.jsonLdService.removeJsonLdSchema(this.document, this.schemaId);
   }
 }
 

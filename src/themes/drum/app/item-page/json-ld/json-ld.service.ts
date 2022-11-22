@@ -6,23 +6,18 @@ import { Inject, Injectable } from '@angular/core';
 })
 
 export class JsonLdService {
-  constructor(
-    @Inject(DOCUMENT) protected document: any
-  ) {
-  }
-
-  insertJsonLdSchema(schemaId: string, jsonLd: any): void {
-    let script = this.document.createElement('script');
+  insertJsonLdSchema(document: Document, schemaId: string, jsonLd: any): void {
+    let script = document.createElement('script');
     script.type = 'application/json+ld';
     script.text = JSON.stringify(jsonLd);
     script.id = schemaId;
-    this.document.head.appendChild(script);
+    document.head.appendChild(script);
   }
 
-  removeJsonLdSchema(schemaId: string): void {
-    let elementToRemove = this.document.getElementById(schemaId);
+  removeJsonLdSchema(document: Document, schemaId: string): void {
+    let elementToRemove = document.getElementById(schemaId);
     if (elementToRemove) {
-      this.document.head.removeChild(elementToRemove);
+      document.head.removeChild(elementToRemove);
     }
   }
 }
