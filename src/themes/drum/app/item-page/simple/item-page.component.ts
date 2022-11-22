@@ -5,6 +5,7 @@ import { AuthorizationDataService } from 'src/app/core/data/feature-authorizatio
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
 import { fadeInOut } from '../../../../../app/shared/animations/fade';
+import { JsonLdDatasetComponent } from '../json-ld/json-ld-dataset.component';
 import { JsonLdService } from '../json-ld/json-ld.service';
 
 /**
@@ -28,7 +29,7 @@ export class ItemPageComponent extends BaseComponent {
     items: ItemDataService,
     authService: AuthService,
     authorizationService: AuthorizationDataService,
-    public jsonLdService: JsonLdService
+    public jsonDatasetComponent: JsonLdDatasetComponent
   ) {
     super(route, router, items, authService, authorizationService);
   }
