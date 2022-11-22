@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 import { DatasetJsonLdTransformer, JsonLdTransformer } from './json-ld-transfomer';
 
 @Injectable({
@@ -11,29 +13,31 @@ export class JsonLdService {
     new DatasetJsonLdTransformer()
   ];
 
-  /**
-   * Returns true if the given DSpaceObject has a "dc.type" of "Dataset",
-   * false otherwise.
-   *
-   * @param item the DSpaceObject to check
-   * @return true if the given DSpaceObject has a "dc.type" of "Dataset",
-   * false otherwise.
-   */
-  isDataset(item: DSpaceObject): boolean {
-    // let dcType: string = item.firstMetadataValue('dc.type');
-
-    // return dcType === 'Dataset';
-
-    return item.hasMetadata('dc.type', { value: 'Dataset' } );
+  constructor(
+    @Inject(DOCUMENT) protected document: any
+  ) {
   }
 
-  insertJsonLdSchema(url: string, dspaceObject: DSpaceObject): string {
+  insertJsonLdSchema(dspaceObject: DSpaceObject): void {
+    let url = this.document.location.href;
     for (const t of this.jsonLdTransformers) {
-      if (t.handles(dspaceObject)) {
-        let json = t.asJsonLd(url, dspaceObject);
-        return `<script type="application/ld+json">\n${JSON.stringify(json)}\n</script>`;
+        if (t.handles(dspaceObject)) {
+          let script = this.document.createElement('script');
+          script.type = 'application/json+ld';
+          let json = t.asJsonLd(url, dspaceObject);
+          script.text = JSON.stringify(json);
+          script.id = 'foobarbaz';
+          this.document.head.appendChild(script);
+          console.log('---appended script');
+        // return `<script type="application/ld+json">\n${JSON.stringify(json)}\n</script>`;
+        //return JSON.stringify(json);
       }
     }
-    return '';
+    // return '';
+  }
+  removeJsonLdSchema(dspaceObject: DSpaceObject): void {
+    let elementToRemove = this.document.getElementById('foobarbaz');
+    this.document.head.removeChild(elementToRemove);
+    console.log('---removed element');
   }
 }
