@@ -1,5 +1,27 @@
 import { Item } from 'src/app/core/shared/item.model';
 
+export const notADataset = {
+  'url': 'https://example.org/items/notADataset',
+  'dspaceObject':
+  Object.assign(new Item(),
+    {
+      'id': 'emptyDataset ID',
+      'uuid': 'emptyDataset UUID',
+      'name': '',
+      'handle': '1903/99999',
+      'metadata': {
+        'dc.type': [
+          {
+            'value': 'Technical Report',
+            'language': 'en_US',
+          }
+        ]
+      },
+    }
+  ),
+  'expectedJsonLd': ''
+}
+
 export const emptyDataset = {
   // The URL to use when constructing the JSON-LD object
   'url': 'https://example.org/items/emptyDataset',

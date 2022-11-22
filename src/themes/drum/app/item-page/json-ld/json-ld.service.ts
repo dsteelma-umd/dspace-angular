@@ -1,10 +1,8 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class JsonLdService {
   insertJsonLdSchema(document: Document, schemaId: string, jsonLd: any): void {
     let script = document.createElement('script');

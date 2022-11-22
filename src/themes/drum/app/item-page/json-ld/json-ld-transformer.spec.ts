@@ -1,53 +1,28 @@
 import { cloneDeep } from 'lodash';
-import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
-import { Item } from 'src/app/core/shared/item.model';
-import { MetadataValue } from 'src/app/core/shared/metadata.models';
-import { ItemMock } from 'src/app/shared/mocks/item.mock';
 import { DatasetJsonLdTransformer } from './json-ld-dataset.transfomer';
-import { emptyDataset, fullDataset } from './mocks/mock-json-ld-items';
+import { emptyDataset, fullDataset, notADataset } from './mocks/mock-json-ld-items';
 
 describe('DatasetJsonLdTransformer', () => {
-  let item: DSpaceObject;
   let transformer: DatasetJsonLdTransformer;
 
-  let itemUrl = 'http://example.org/handle/10673/6';
-
-  // Modified the given item with the changes in the given Map
-  let createModifiedItem = (itemToModify, metadataChanges) => {
-    let modifiedItem = cloneDeep(itemToModify);
-    for (const [key, value] of metadataChanges.entries()) {
-      modifiedItem.metadata[key] = value;
-    }
-    return modifiedItem;
-  };
-
-  // Modifies the ItemMock to have a "dc.type" of "Dataset"
-  const datasetItem: Item = createModifiedItem(ItemMock,
-    new Map([
-      ['dc.type', [{'language': 'en_US', 'value': 'Dataset'}]],
-      ['dc.contributor.author', [{'language': 'en_US', 'value': 'Author, Test'}]],
-      ['dc.rights.uri', [{'language': '*', 'value': 'http://creativecommons.org/licenses/by-nc-nd/3.0/us/'}]],
-    ])
-  );
-
   beforeEach(() => {
-    item = cloneDeep(ItemMock);
     transformer = new DatasetJsonLdTransformer();
   });
 
   describe('handles', () => {
     it('returns true if the "dc.type" metadata field of the item is "Dataset"', () => {
-      item.metadata['dc.type'] = [{ value: 'Dataset' }] as MetadataValue[];
+      let item = fullDataset.dspaceObject;
       expect(transformer.handles(item)).toBe(true);
     });
 
     describe('returns false', () => {
       it('if the "dc.type" metadata field of the item is not "Dataset"', () => {
-        expect(item.hasMetadata('dc.type')).toBe(true);
+        let item = notADataset.dspaceObject;
         expect(transformer.handles(item)).toBe(false);
       });
 
       it('if the "dc.type" metadata field of the item is not present', () => {
+        let item = cloneDeep(notADataset.dspaceObject); // Cloning because item is modified by test
         item.removeMetadata('dc.type');
         expect(transformer.handles(item)).toBe(false);
       });
