@@ -18,26 +18,20 @@ export class JsonLdService {
   ) {
   }
 
-  insertJsonLdSchema(dspaceObject: DSpaceObject): void {
-    let url = this.document.location.href;
-    for (const t of this.jsonLdTransformers) {
-        if (t.handles(dspaceObject)) {
-          let script = this.document.createElement('script');
-          script.type = 'application/json+ld';
-          let json = t.asJsonLd(url, dspaceObject);
-          script.text = JSON.stringify(json);
-          script.id = 'foobarbaz';
-          this.document.head.appendChild(script);
-          console.log('---appended script');
-        // return `<script type="application/ld+json">\n${JSON.stringify(json)}\n</script>`;
-        //return JSON.stringify(json);
-      }
-    }
-    // return '';
+  insertJsonLdSchema(schemaId: string, jsonLd: any): void {
+    let script = this.document.createElement('script');
+    script.type = 'application/json+ld';
+    script.text = JSON.stringify(jsonLd);
+    script.id = schemaId;
+    this.document.head.appendChild(script);
+    console.log('---appended JSON-LD script: ' + schemaId);
   }
-  removeJsonLdSchema(dspaceObject: DSpaceObject): void {
-    let elementToRemove = this.document.getElementById('foobarbaz');
-    this.document.head.removeChild(elementToRemove);
-    console.log('---removed element');
+
+  removeJsonLdSchema(schemaId: string): void {
+    let elementToRemove = this.document.getElementById(schemaId);
+    if (elementToRemove) {
+      this.document.head.removeChild(elementToRemove);
+      console.log('---removed element: ' + schemaId);
+    }
   }
 }
