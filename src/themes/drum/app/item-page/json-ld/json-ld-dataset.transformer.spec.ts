@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { DatasetJsonLdTransformer } from './json-ld-dataset.transfomer';
-import { emptyDataset, fullDataset, notADataset } from './mocks/mock-json-ld-items';
+import { emptyDataset, escapeTestDataset, fullDataset, notADataset } from './mocks/mock-json-ld-items';
 
 describe('DatasetJsonLdTransformer', () => {
   let transformer: DatasetJsonLdTransformer;
@@ -40,6 +40,12 @@ describe('DatasetJsonLdTransformer', () => {
       let url = emptyDataset.url;
       let jsonLd = transformer.asJsonLd(url, emptyDataset.dspaceObject);
       expect(jsonLd).toEqual(emptyDataset.expectedJsonLd);
+    });
+
+    it('escapeTestDataset - returns a JSON-LD object with escaped values', () => {
+      let url = escapeTestDataset.url;
+      let jsonLd = transformer.asJsonLd(url, escapeTestDataset.dspaceObject);
+      expect(jsonLd).toEqual(escapeTestDataset.expectedJsonLd);
     });
   });
 });

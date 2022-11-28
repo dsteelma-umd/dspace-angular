@@ -1,3 +1,4 @@
+import { escape } from 'lodash';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
 
 export class DatasetJsonLdTransformer {
@@ -6,21 +7,24 @@ export class DatasetJsonLdTransformer {
   }
 
   private fromDspaceObject(url: string, dspaceObject: DSpaceObject): any {
+    // Run each value (or array of values) through escape/escapeAll to prevent
+    // cross-site scripting (XSS) attacks from user-input values.
     return {
-      'type': dspaceObject.firstMetadataValue('dc.type') || '',
-      'name': dspaceObject.firstMetadataValue('dc.title') || '',
-      'url': url,
-      'temporalCoverage': dspaceObject.firstMetadataValue('dc.date.issued')  || '',
-      'descriptions': dspaceObject.allMetadataValues('dc.description.abstract'),
-      'creators': dspaceObject.allMetadataValues('dc.contributor.author'),
-      'identifiers': dspaceObject.allMetadataValues(['dc.identifier.uri', 'dc.identifier.*', 'dc.identifier']),
-      'license': dspaceObject.firstMetadataValue('dc.rights.uri')  || ''
+      'type': escape(dspaceObject.firstMetadataValue('dc.type') || ''),
+      'name': escape(dspaceObject.firstMetadataValue('dc.title') || ''),
+      'url': escape(url),
+      'temporalCoverage': escape(dspaceObject.firstMetadataValue('dc.date.issued')  || ''),
+      'descriptions': this.escapeAll(dspaceObject.allMetadataValues('dc.description.abstract')),
+      'creators': this.escapeAll(dspaceObject.allMetadataValues('dc.contributor.author')),
+      'identifiers': this.escapeAll(dspaceObject.allMetadataValues(['dc.identifier.uri', 'dc.identifier.*', 'dc.identifier'])),
+      'license': escape(dspaceObject.firstMetadataValue('dc.rights.uri')  || '')
     };
   }
 
   asJsonLd(url: string, dspaceObject: DSpaceObject): any {
     let jsonObj = this.fromDspaceObject(url, dspaceObject);
     let description = jsonObj.descriptions.join(' ');
+    let identifiers = jsonObj.identifiers;
     let creator = [];
 
     for (const creatorName of jsonObj.creators) {
@@ -39,8 +43,19 @@ export class DatasetJsonLdTransformer {
       'url': jsonObj.url,
       'temporalCoverage': jsonObj.temporalCoverage,
       'creator': creator,
-      'identifier': jsonObj.identifiers,
+      'identifier': identifiers,
       'license': jsonObj.license
     };
+  }
+
+  /**
+   * Runs "escape" on each value in the string array, returning an array of
+   * escaped string.
+   *
+   * @param values the string array of values to escape
+   * @return an array of escaped string values.
+   */
+  private escapeAll(values: string[]): string[] {
+    return values.map(id => escape(id));
   }
 }
