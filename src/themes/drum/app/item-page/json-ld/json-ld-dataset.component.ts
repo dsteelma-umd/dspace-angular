@@ -30,6 +30,9 @@ export class JsonLdDatasetComponent implements OnInit, OnDestroy {
     this.transformer = new DatasetJsonLdTransformer();
   }
 
+  /**
+   * Appends the JSON-LD for the item, if the item is a Dataset.
+   */
   ngOnInit(): void {
     if (this.transformer.handles(this.item)) {
       let url = this.document.location.href;
@@ -38,10 +41,9 @@ export class JsonLdDatasetComponent implements OnInit, OnDestroy {
     }
   }
 
-  handles(dspaceObject: DSpaceObject) {
-    return this.transformer.handles(dspaceObject);
-  }
-
+  /**
+   * Removes the JSON-LD added for the item, if any.
+   */
   ngOnDestroy(): void {
     this.jsonLdService.removeJsonLdSchema(this.document, this.scriptId);
   }

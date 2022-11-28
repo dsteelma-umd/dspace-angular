@@ -2,6 +2,12 @@ import { escape } from 'lodash';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
 
 export class DatasetJsonLdTransformer {
+  /**
+   * Returns true if the DSpaceObject is a Dataset, false otherwise.
+   *
+   * @param item the DSpaceObject to check
+   * @return true if the DSpaceObject is a Dataset, false otherwise.
+   */
   handles(item: DSpaceObject): boolean {
     return item.hasMetadata('dc.type', { value: 'Dataset' } );
   }
