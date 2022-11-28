@@ -16,7 +16,7 @@ export class JsonLdDatasetComponent implements OnInit, OnDestroy {
   /**
    * The id to assign to the HTML script tag containing the JSON-LD schema
    */
-  @Input() schemaId: string;
+  @Input() scriptId: string;
 
   /**
    * The Item to display the JSON-LD for
@@ -34,7 +34,7 @@ export class JsonLdDatasetComponent implements OnInit, OnDestroy {
     if (this.transformer.handles(this.item)) {
       let url = this.document.location.href;
       let jsonLd = this.transformer.asJsonLd(url, this.item);
-      this.jsonLdService.insertJsonLdSchema(this.document, this.schemaId, jsonLd);
+      this.jsonLdService.insertJsonLdSchema(this.document, this.scriptId, jsonLd);
     }
   }
 
@@ -43,7 +43,7 @@ export class JsonLdDatasetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.jsonLdService.removeJsonLdSchema(this.document, this.schemaId);
+    this.jsonLdService.removeJsonLdSchema(this.document, this.scriptId);
   }
 }
 
