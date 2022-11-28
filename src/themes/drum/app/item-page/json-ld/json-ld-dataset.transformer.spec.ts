@@ -35,6 +35,7 @@ describe('DatasetJsonLdTransformer', () => {
       let jsonLd = transformer.asJsonLd(url, fullDataset.dspaceObject);
       expect(jsonLd).toEqual(fullDataset.expectedJsonLd);
     });
+
     it('emptyDataset - returns a JSON-LD object with default values when values are not given', () => {
       let url = emptyDataset.url;
       let jsonLd = transformer.asJsonLd(url, emptyDataset.dspaceObject);

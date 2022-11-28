@@ -17,10 +17,12 @@ export class JsonLdDatasetComponent implements OnInit, OnDestroy {
    * The id to assign to the HTML script tag containing the JSON-LD schema
    */
   @Input() schemaId: string;
+
   /**
    * The Item to display the JSON-LD for
    */
   @Input() item: Item;
+
   constructor(
     protected jsonLdService: JsonLdService,
     @Inject(DOCUMENT) protected document: any,

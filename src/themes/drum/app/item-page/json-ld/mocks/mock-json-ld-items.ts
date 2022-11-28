@@ -20,7 +20,7 @@ export const notADataset = {
     }
   ),
   'expectedJsonLd': ''
-}
+};
 
 export const emptyDataset = {
   // The URL to use when constructing the JSON-LD object
