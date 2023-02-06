@@ -15,6 +15,10 @@ import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Location } from '@angular/common';
 
+// UMD Customization
+import { RESTRICTED_ACCESS_PATH } from '../../app-routing-paths';
+// End UMD Customization
+
 @Component({
   selector: 'ds-bitstream-download-page',
   templateUrl: './bitstream-download-page.component.html'
@@ -82,8 +86,9 @@ export class BitstreamDownloadPageComponent implements OnInit {
       } else if (!isAuthorized && isLoggedIn) {
         this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
       } else if (!isAuthorized && !isLoggedIn) {
-        this.auth.setRedirectUrl(this.router.url);
-        this.router.navigateByUrl('login');
+        // UMD Customization
+        this.router.navigateByUrl(RESTRICTED_ACCESS_PATH, {skipLocationChange: true});
+        // End UMD Customization
       }
     });
   }

@@ -24,6 +24,7 @@ import {
   // UMD Customization
   EMBARGO_LIST_PAGE_PATH,
   ETDUNIT_PATH,
+  RESTRICTED_ACCESS_PATH
   // End UMD Customization
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -44,6 +45,10 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+
+// UMD Customization
+import { RestrictedAccessComponent } from './restricted-access/restricted-access.component';
+// End UMD Customization
 
 @NgModule({
   imports: [
@@ -244,6 +249,10 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: ETDUNIT_PATH,
             loadChildren: () => import('./etdunit-registry/etdunits.module').then((m) => m.EtdUnitsModule),
             canActivate: [SiteAdministratorGuard],
+          },
+          {
+            path: RESTRICTED_ACCESS_PATH,
+            component: RestrictedAccessComponent
           },
           // End UMD Customization
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
