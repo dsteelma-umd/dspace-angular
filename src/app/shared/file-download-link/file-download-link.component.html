@@ -6,3 +6,11 @@
 <ng-template #content>
   <ng-content></ng-content>
 </ng-template>
+
+<!-- UMD Customization -->
+<ng-template [ngIf]="!(canDownload$ |async)">
+  <br>
+  {{'bitstream.embargo.restricted-access' | translate }}
+  <br>
+</ng-template>
+<!-- End UMD Customization -->
