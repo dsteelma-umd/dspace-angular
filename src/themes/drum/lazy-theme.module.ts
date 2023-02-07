@@ -59,14 +59,13 @@ import { EmbargoListPageModule } from '../../app/embargo-list/embargo-list-page.
 import { EtdUnitsModule } from 'src/app/etdunit-registry/etdunits.module';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { JsonLdDatasetComponent } from './app/item-page/json-ld/json-ld-dataset.component';
-import { RestrictedAccessComponent } from 'src/app/restricted-access/restricted-access.component';
+import { RestrictedAccessPageModule } from 'src/app/restricted-access-page/restricted-access-page.module';
 
 const DECLARATIONS = [
   ItemPageComponent,
   JsonLdDatasetComponent,
   PrivacyComponent,
   UnitsRegistryComponent,
-  RestrictedAccessComponent,
 ];
 
 @NgModule({
@@ -117,6 +116,7 @@ const DECLARATIONS = [
     ComcolModule,
     EmbargoListPageModule,
     EtdUnitsModule,
+    RestrictedAccessPageModule,
   ],
   declarations: DECLARATIONS,
 })

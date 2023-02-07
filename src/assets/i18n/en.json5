@@ -5131,5 +5131,11 @@
   "submission.sections.submit.progressbar.equitableAccessSubmission": "Equitable Access",
 
   "bitstream.embargo.restricted-access": "(RESTRICTED ACCESS)",
+
+  "bitstream.embargo.restricted-access.header": "Restricted Access",
+
+  "bitstream.embargo.restricted-access.embargo-until": "At the request of the author, this document is not available until {{ embargoEndDate }}.",
+
+  "bitstream.embargo.restricted-access.embargo-not-available": "At the request of the author, this document is not available."
   // End UMD Customization
 }

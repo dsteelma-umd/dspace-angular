@@ -16,7 +16,7 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Location } from '@angular/common';
 
 // UMD Customization
-import { RESTRICTED_ACCESS_PATH } from '../../app-routing-paths';
+import { RESTRICTED_ACCESS_MODULE_PATH } from '../../app-routing-paths';
 // End UMD Customization
 
 @Component({
@@ -87,7 +87,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
         this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
       } else if (!isAuthorized && !isLoggedIn) {
         // UMD Customization
-        this.router.navigateByUrl(RESTRICTED_ACCESS_PATH, {skipLocationChange: true});
+        this.router.navigateByUrl(`${RESTRICTED_ACCESS_MODULE_PATH}/${bitstream.uuid}`, {skipLocationChange: true});
         // End UMD Customization
       }
     });

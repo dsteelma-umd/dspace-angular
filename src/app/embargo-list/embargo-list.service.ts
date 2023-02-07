@@ -23,6 +23,15 @@ export class EmbargoListService {
   }
 
   /**
+   * Returns an Observable of an embargo for the given bitstream UUID
+   * @returns a single Embargo, or an empty map
+   */
+  getEmbargo(bitstreamUuid: string): Observable<RawRestResponse> {
+    return this.halService.getEndpoint('/embargo-list').pipe(
+      switchMap((endpoint: string) => this.restService.get(`${endpoint}/${bitstreamUuid}`)));
+ }
+
+  /**
    * Returns the local URL path to the given handle
    *
    * @returns the local URL path to the given handle

@@ -24,7 +24,7 @@ import {
   // UMD Customization
   EMBARGO_LIST_PAGE_PATH,
   ETDUNIT_PATH,
-  RESTRICTED_ACCESS_PATH
+  RESTRICTED_ACCESS_MODULE_PATH,
   // End UMD Customization
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
@@ -47,7 +47,7 @@ import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 
 // UMD Customization
-import { RestrictedAccessComponent } from './restricted-access/restricted-access.component';
+import { RestrictedAccessComponent } from './restricted-access-page/restricted-access/restricted-access.component';
 // End UMD Customization
 
 @NgModule({
@@ -251,8 +251,10 @@ import { RestrictedAccessComponent } from './restricted-access/restricted-access
             canActivate: [SiteAdministratorGuard],
           },
           {
-            path: RESTRICTED_ACCESS_PATH,
-            component: RestrictedAccessComponent
+            path: RESTRICTED_ACCESS_MODULE_PATH,
+            loadChildren: () => import('./restricted-access-page/restricted-access-page.module')
+              .then((m) => m.RestrictedAccessPageModule),
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           // End UMD Customization
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
