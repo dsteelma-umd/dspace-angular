@@ -22,6 +22,14 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
   @autoserialize
   sizeBytes: number;
 
+  // UMD Customization
+  /**
+   * True if the bitstream is embargoed, false otherwise.
+   */
+  @autoserialize
+  restrictedAccess: boolean;
+  // End UMD Customization
+
   /**
    * The description of this Bitstream
    */

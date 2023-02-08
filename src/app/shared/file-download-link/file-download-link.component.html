@@ -8,7 +8,7 @@
 </ng-template>
 
 <!-- UMD Customization -->
-<ng-template [ngIf]="!(canDownload$ |async)">
+<ng-template [ngIf]="(restrictedAccess$ |async)">
   <br>
   {{'bitstream.embargo.restricted-access' | translate }}
   <br>
