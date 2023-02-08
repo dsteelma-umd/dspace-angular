@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { RestrictedAccessComponent } from './restricted-access/restricted-access.component';
 
 /**
- * Routing module to help navigate Bitstream pages
+ * Routing module to help navigate Restricted Access pages
  */
 @NgModule({
   imports: [

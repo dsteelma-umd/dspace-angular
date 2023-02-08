@@ -87,6 +87,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
         this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
       } else if (!isAuthorized && !isLoggedIn) {
         // UMD Customization
+        // Send user to restricted access page
         this.router.navigateByUrl(`${RESTRICTED_ACCESS_MODULE_PATH}/${bitstream.uuid}`, {skipLocationChange: true});
         // End UMD Customization
       }

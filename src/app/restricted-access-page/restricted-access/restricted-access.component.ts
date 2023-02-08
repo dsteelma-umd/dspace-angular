@@ -23,7 +23,7 @@ export class RestrictedAccessComponent implements OnInit {
   }
 
   /**
-   * The bitstream UUID retrieveid from the URL
+   * The bitstream UUID retrieved from the URL
    */
   private bitstreamUuid: string;
 
@@ -42,6 +42,7 @@ export class RestrictedAccessComponent implements OnInit {
         this.embargoMessage.next(this.setEmbargoMessage(data.payload));
       },
       error: () => {
+        // An error occurred, so just show the generic message
         this.embargoMessage.next(this.setEmbargoMessage(null));
       }
     });
