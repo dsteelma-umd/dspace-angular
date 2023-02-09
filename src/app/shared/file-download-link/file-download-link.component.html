@@ -6,3 +6,11 @@
 <ng-template #content>
   <ng-content></ng-content>
 </ng-template>
+
+<!-- UMD Customization -->
+<ng-template [ngIf]="(restrictedAccess$ |async)">
+  <br>
+  {{'bitstream.restricted-access.text' | translate }}
+  <br>
+</ng-template>
+<!-- End UMD Customization -->

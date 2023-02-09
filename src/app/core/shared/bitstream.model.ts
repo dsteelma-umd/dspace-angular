@@ -67,7 +67,27 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
   @link(BUNDLE)
   bundle?: Observable<RemoteData<Bundle>>;
 
+  // UMD Customization
+  /**
+   * A String indicating whether (and how long) this object has restricted
+   * access:following Strings, based on whether the given
+   *
+   * - A date string (in "yyyy-MM-DD" format) - The lift date of the restriction
+   * - "FOREVER" - the access restriction is forever
+   * - "NONE" - there is no access restriction
+   */
+  @autoserialize
+  restrictedAccess: string;
+  // End UMD Customization
+
   getParentLinkKey(): keyof this['_links'] {
     return 'format';
+  }
+
+  /**
+   * Returns true if this bitstream has access restrictions, false otherwise.
+   */
+  isRestrictedAccess() {
+    return 'NONE' !== this.restrictedAccess;
   }
 }
