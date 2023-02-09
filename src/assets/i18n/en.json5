@@ -5131,5 +5131,14 @@
   "submission.sections.submit.progressbar.equitableAccessSubmission": "Equitable Access",
 
   "bitstream.restricted-access.text": "(RESTRICTED ACCESS)",
+
+  "bitstream.restricted-access.title": "This resource is restricted",
+
+  "bitstream.restricted-access.header": "Restricted Access",
+
+  "bitstream.restricted-access.message.forever": "At the request of the author, this document is not available.",
+
+  "bitstream.restricted-access.message.restricted-until": "At the request of the author, this document is not available until {{ restrictedAccessDate }}.",
+
   // End UMD Customization
 }
