@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
-import { BehaviorSubject, windowWhen } from 'rxjs';
+import { BehaviorSubject, Observable, windowWhen, zip } from 'rxjs';
+import { AuthService } from '../core/auth/auth.service';
 
 /**
  * This component representing the `Restricted Access` DSpace page.
@@ -14,15 +14,19 @@ import { BehaviorSubject, windowWhen } from 'rxjs';
   styleUrls: ['./restricted-access.component.scss']
 })
 
-
-
 export class RestrictedAccessComponent implements OnInit {
-/**
- * The embargo message to display to the user.
- */
-restrictedAccessMessage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  /**
+   * The header to display
+   */
+  restrictedAccessHeader: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+  /**
+   * The message to display
+   */
+  restrictedAccessMessage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
+    private auth: AuthService,
     private translateService: TranslateService,
     private datePipe: DatePipe
   ) {
@@ -30,27 +34,58 @@ restrictedAccessMessage: BehaviorSubject<string> = new BehaviorSubject<string>(n
   ngOnInit(): void {
     // Retrieve "restrictedAccess" parameter from history state,
     // see https://medium.com/javascript-everyday/keep-data-in-the-state-object-during-navigation-in-angular-5657af156fb8
-
     const { restrictedAccess } = window.history.state;
 
-    let message;
+    const isLoggedIn$ = this.auth.isAuthenticated();
 
-    if ((restrictedAccess == null) || ('FOREVER' === restrictedAccess)) {
-      message = this.getMessage('bitstream.restricted-access.message.forever', {});
-    } else {
-      message = 'bitstream.restricted-access.message.restricted-until';
-      let parsedDate = this.datePipe.transform(restrictedAccess, 'longDate');
-      message = this.getMessage('bitstream.restricted-access.message.restricted-until', { 'restrictedAccessDate': parsedDate});
-    }
+    isLoggedIn$.subscribe((isLoggedIn: boolean) => {
+      let header$: Observable<string>;
+      let message$: Observable<string>;
 
-    this.restrictedAccessMessage.next(message);
+      if (isLoggedIn) {
+        header$ = this.translateService.get('bitstream.restricted-access.user.forbidden.header', {});
+        message$  = this.translateService.get('bitstream.restricted-access.user.forbidden.message', {});
+      } else {
+        [header$, message$] = this.configureAnonymous(restrictedAccess);
+      }
+
+      zip(header$, message$).subscribe(([header, message]) => {
+        this.restrictedAccessHeader.next(header);
+        this.restrictedAccessMessage.next(message);
+      });
+    });
   }
 
-  protected getMessage(i18nKey: string, params: any): string {
-    let translatedMessage = '';
-    this.translateService.get(i18nKey, params).subscribe((result) => {
-      translatedMessage = result;
-    });
-    return translatedMessage;
+  protected configureAnonymous(restrictedAccess: string): [Observable<string>, Observable<string>] {
+    let header$ = this.translateService.get('bitstream.restricted-access.header', {});
+    let message$: Observable<string>;
+
+    if (restrictedAccess == null) {
+      message$ = this.translateService.get('bitstream.restricted-access.anonymous.forbidden.message', {});
+    } else if (('FOREVER' === restrictedAccess)) {
+      message$ = this.translateService.get('bitstream.restricted-access.forever.message', {});
+    } else if (this.isValidDate(restrictedAccess)) {
+      let parsedDate = this.datePipe.transform(restrictedAccess, 'longDate');
+      message$ = this.translateService.get(
+        'bitstream.restricted-access.restricted-until.message', { 'restrictedAccessDate': parsedDate}
+      );
+    } else {
+      // Reach this branch when restrictedAccess is "NONE", but there is some
+      // other restriction, such as a "Campus" IP address group restiction.
+      message$ = this.translateService.get('bitstream.restricted-access.anonymous.forbidden.message', {});
+    }
+
+    return [header$, message$];
+  }
+
+  /**
+   * Returns true if the given String represents a valid date, false otherise.
+   *
+   * @param str the String to check.
+   * @true if the given String represents a valid date, false otherise.
+   */
+  private isValidDate(str: string): boolean {
+    // Expected date is in yyyy-MM-dd format.
+    return (str.match(/\d\d\d\d-\d\d-\d\d/) != null);
   }
 }

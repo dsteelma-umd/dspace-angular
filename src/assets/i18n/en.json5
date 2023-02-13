@@ -5136,9 +5136,15 @@
 
   "bitstream.restricted-access.header": "Restricted Access",
 
-  "bitstream.restricted-access.message.forever": "At the request of the author, this document is not available.",
+  "bitstream.restricted-access.forever.message": "At the request of the author, this document is not available.",
 
-  "bitstream.restricted-access.message.restricted-until": "At the request of the author, this document is not available until {{ restrictedAccessDate }}.",
+  "bitstream.restricted-access.restricted-until.message": "At the request of the author, this document is not available until {{ restrictedAccessDate }}.",
+
+  "bitstream.restricted-access.anonymous.forbidden.message": "The file you are attempting to access is restricted.",
+
+  "bitstream.restricted-access.user.forbidden.header": "This bitstream is restricted",
+
+  "bitstream.restricted-access.user.forbidden.message": "You do not have the credentials to access this restricted bitstream."
 
   // End UMD Customization
 }
