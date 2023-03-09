@@ -1,1 +1,7 @@
-<div id="wufoo-r12gwaic1xvrtzs"> Fill out my <a href="https://libumd.wufoo.com/forms/r12gwaic1xvrtzs">online form</a>. </div>
+<div *ngIf="(formHashFallback && formHashFallback.length > 0); else elseBlock">
+  <div id="wufoo-{{formHashFallback}}">
+    Redirecting to online form. If this page does not refresh please click here
+    <a href="https://libumd.wufoo.com/forms/{{formHashFallback}}">here</a>.
+  </div>
+</div>
+<ng-template #elseBlock>Please send an email to the address at the bottom of the page.</ng-template>
