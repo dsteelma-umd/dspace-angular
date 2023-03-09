@@ -70,26 +70,23 @@ export class FeedbackFormComponent implements OnInit {
 
     let linkName = 'wufoo-feedback';
 
-    // const href$ = this.halService.getEndpoint(linkName).pipe(
-    //   take(1),
-    //   tap((href: string) => { console.log(`----href=${href}`); }),
-    //   tap((href: string) => { console.log(`----isNotEmpty(href)=${isNotEmpty(href)}`); }),
-    //   filter((href: string) => isNotEmpty(href)),
-    //   tap((href) => { console.log('--fjsgslg'); })
-    // );
+    const href$ = this.halService.getEndpoint(linkName).pipe(
+      take(1),
+    ).subscribe((href) => {
 
-    this.httpClient.get('http://localhost:8080/server/api/wufoo-feedback', { responseType: 'text' }).subscribe((data: any) => {
-      console.log(`---data=${data}`);
-      let script = data;
-      let myScriptElement = document.createElement('script');
-      myScriptElement.type = 'text/javascript';
-      myScriptElement.text = script;
-      document.body.appendChild(myScriptElement);
+      this.httpClient.get(href, { responseType: 'text' }).subscribe((data: any) => {
+        console.log(`---data=${data}`);
+        let script = data;
+        let myScriptElement = document.createElement('script');
+        myScriptElement.type = 'text/javascript';
+        myScriptElement.text = script;
+        document.body.appendChild(myScriptElement);
 
-      // const output = data.replaceAll(new RegExp('.*\\@(.*)', 'g'), '$1')
-      //   .replaceAll('The script has started', '')
-      //   .replaceAll('The script has completed', '');
-      // this.notificationsService.info(this.translateService.get('collection.source.controls.test.completed'), output);
+        // const output = data.replaceAll(new RegExp('.*\\@(.*)', 'g'), '$1')
+        //   .replaceAll('The script has started', '')
+        //   .replaceAll('The script has completed', '');
+        // this.notificationsService.info(this.translateService.get('collection.source.controls.test.completed'), output);
+      });
     });
 
     // let result = this.rdb.buildFromHref(href$);
