@@ -41,7 +41,7 @@ export class WufooFeedbackResolver implements Resolve<any> {
 
       let feedbackFormUrl = 'http://localhost:8080/server/api/wufoo-feedback';
       this.httpClient.get(feedbackFormUrl, { params: { 'page': previousPage } }).subscribe((obj) => {
-        let redirectUrl = obj['wufooFormUrl'];
+        let redirectUrl = obj['wufooFeedbackFormUrl'];
         console.log(`-----relatedUrl: ${redirectUrl}`);
         window.location.href = redirectUrl;
       });
