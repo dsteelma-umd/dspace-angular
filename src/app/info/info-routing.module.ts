@@ -7,7 +7,9 @@ import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
 import { environment } from '../../environments/environment';
+// UMD Customization
 import { WufooFeedbackResolver } from '../wufoo/wufoo-feedback-resolver';
+// End UMD Customization
 
 
 const imports = [
@@ -15,7 +17,9 @@ const imports = [
     {
       path: FEEDBACK_PATH,
       component: ThemedFeedbackComponent,
+      // UMD Customization
       resolve: { breadcrumb: I18nBreadcrumbResolver, wufoo: WufooFeedbackResolver },
+      // End UMD Customization
       data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
       canActivate: [FeedbackGuard]
     }
