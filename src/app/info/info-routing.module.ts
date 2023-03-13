@@ -7,6 +7,7 @@ import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
 import { environment } from '../../environments/environment';
+import { WufooFeedbackResolver } from '../wufoo/wufoo-feedback-resolver';
 
 
 const imports = [
@@ -14,7 +15,7 @@ const imports = [
     {
       path: FEEDBACK_PATH,
       component: ThemedFeedbackComponent,
-      resolve: { breadcrumb: I18nBreadcrumbResolver },
+      resolve: { breadcrumb: I18nBreadcrumbResolver, wufoo: WufooFeedbackResolver },
       data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
       canActivate: [FeedbackGuard]
     }
