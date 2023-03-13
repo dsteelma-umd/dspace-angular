@@ -1,15 +1,12 @@
-// import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { take } from 'rxjs';
-import { getHomePageRoute } from '../app-routing-paths';
 import { RouteService } from '../core/services/route.service';
 import { NativeWindowRef, NativeWindowService } from '../core/services/window.service';
+import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
-// import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
-// import { hasNoValue } from '../../shared/empty.util';
-// import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
+import { WufooFeedbackResponse } from './wufoo-feedback-response.model';
 
 /**
  * The class that resolves a BreadcrumbConfig object with an i18n key string for a route
@@ -21,8 +18,8 @@ export class WufooFeedbackResolver implements Resolve<any> {
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private routeService: RouteService,
-    private router: Router,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private halService: HALEndpointService
   ) {
   }
 
@@ -37,21 +34,15 @@ export class WufooFeedbackResolver implements Resolve<any> {
       if (!url) {
         url = '/';
       }
-      const previousPage = new URLCombiner(this._window.nativeWindow.origin, url).toString();
+      const referringPage = new URLCombiner(this._window.nativeWindow.origin, url).toString();
 
-      let feedbackFormUrl = 'http://localhost:8080/server/api/wufoo-feedback';
-      this.httpClient.get(feedbackFormUrl, { params: { 'page': previousPage } }).subscribe((obj) => {
-        let redirectUrl = obj['wufooFeedbackFormUrl'];
-        console.log(`-----relatedUrl: ${redirectUrl}`);
-        window.location.href = redirectUrl;
+      let wufooFeedbackEndpoint = this.halService.getEndpoint('wufoo-feedback').subscribe((wufooFeedbackUrl) => {
+        this.httpClient.get(wufooFeedbackUrl, { params: { 'page': referringPage } }).subscribe((obj) => {
+          let wufooFeedbackResponse = <WufooFeedbackResponse> obj;
+          let redirectUrl = wufooFeedbackResponse.wufooFeedbackFormUrl;
+          window.location.href = redirectUrl;
+        });
       });
     });
-
-    // const key = route.data.breadcrumbKey;
-    // if (hasNoValue(key)) {
-    //   throw new Error('You provided an i18nBreadcrumbResolver for url \"' + route.url + '\" but no breadcrumbKey in the route\'s data');
-    // }
-    // const fullPath = currentPathFromSnapshot(route);
-    // return { provider: this.breadcrumbService, key: key, url: fullPath };
   }
 }
