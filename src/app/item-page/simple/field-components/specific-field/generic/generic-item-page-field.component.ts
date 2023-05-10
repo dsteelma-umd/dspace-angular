@@ -35,4 +35,9 @@ export class GenericItemPageFieldComponent extends ItemPageFieldComponent {
    */
   @Input() label: string;
 
+    /**
+   * Whether the {@link MarkdownPipe} should be used to render this metadata.
+   */
+    @Input() enableMarkdown = false;
+
 }
