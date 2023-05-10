@@ -4,13 +4,13 @@ import { Item } from '../../../../../core/shared/item.model';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
-    selector: 'ds-item-page-abstract-field',
+    selector: 'ds-item-page-description-field',
     templateUrl: '../item-page-field.component.html'
 })
 /**
- * This component is used for displaying the abstract (dc.description.abstract) of an item
+ * This component is used for displaying the description (dc.description) of an item
  */
-export class ItemPageAbstractFieldComponent extends ItemPageFieldComponent {
+export class ItemPageDescriptionFieldComponent extends ItemPageFieldComponent {
 
     /**
      * The item to display metadata for
@@ -28,18 +28,16 @@ export class ItemPageAbstractFieldComponent extends ItemPageFieldComponent {
      * In this component, we want to display values for metadata 'dc.description.abstract'
      */
     fields: string[] = [
-        'dc.description.abstract'
+        'dc.description'
     ];
 
     /**
      * Label i18n key for the rendered metadata
      */
-    label = 'item.page.abstract';
+    label = 'item.page.description';
 
     /**
      * Use the {@link MarkdownPipe} to render dc.description.abstract values
      */
-    // UMD Customization
-    enableMarkdown = false;
-    // End UMD Customization
+    enableMarkdown = true;
 }

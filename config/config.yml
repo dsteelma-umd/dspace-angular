@@ -25,3 +25,7 @@ bundle:
 # Disable End User Agreement
 info:
   enableEndUserAgreement: false
+
+# Enable Markdown
+markdown:
+  enabled: true
