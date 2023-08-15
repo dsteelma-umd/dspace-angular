@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
 
 /**
  * This component triggers a page view statistic
@@ -14,7 +15,8 @@ export class ViewTrackerComponent implements OnInit {
   @Input() object: DSpaceObject;
 
   constructor(
-    public angulartics2: Angulartics2
+    public angulartics2: Angulartics2,
+    private dsoNameService: DSONameService
   ) {
   }
 
@@ -24,7 +26,8 @@ export class ViewTrackerComponent implements OnInit {
       // UMD Customization
       // Matomo analytics requires a "category" property, unlike
       // Google Analytics which sets the category to "Event" by default
-      properties: {object: this.object, category: 'Event'},
+      properties: {object: this.object, category: 'Event',
+        name: this.dsoNameService.getName(this.object) + '|' + window.location.href },
       // End UMD Customization
     });
   }
