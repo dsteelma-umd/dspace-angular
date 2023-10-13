@@ -28,7 +28,7 @@ export class JsonLdWebsiteComponent implements OnInit, OnDestroy {
    * Appends the JSON-LD for the website on all pages
    */
   ngOnInit(): void {
-    const dspaceName$ = this.configurationService.findByPropertyName('dspace.name').pipe(
+    const dspaceName$ = this.configurationService.findByPropertyName('dspace.long.name').pipe(
       getFirstCompletedRemoteData(),
     );
 
