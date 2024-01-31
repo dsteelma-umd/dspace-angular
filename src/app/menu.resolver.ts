@@ -5,10 +5,7 @@ import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
-import { getFirstCompletedRemoteData } from './core/shared/operators';
-import { PaginatedList } from './core/data/paginated-list.model';
 import { BrowseDefinition } from './core/shared/browse-definition.model';
-import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { BrowseService } from './core/browse/browse.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -106,10 +103,64 @@ export class MenuResolver implements Resolve<boolean> {
         } as LinkMenuItemModel
       }
     ];
+
+    // UMD Customization
+    // menuList.push({
+    //   id: `drum_customizations_submit_item`,
+    //   active: false,
+    //   visible: true,
+    //   index: 2,
+    //   model: {
+    //     type: MenuItemType.LINK,
+    //     text: `Submit item to DRUM`,
+    //     link: `/submit`
+    //   } as LinkMenuItemModel
+    // });
+    // this.authorizationService.isAuthorized(FeatureID.CanSubmit).subscribe((canSubmit) => {
+    //   menuList.push({
+    //     id: `drum_customizations_submit_item`,
+    //     active: false,
+    //     visible: canSubmit,
+    //     index: 2,
+    //     model: {
+    //       type: MenuItemType.ONCLICK,
+    //       text: `Submit item to DRUM`,
+    //       function: () => {
+    //         this.modalService.open(ThemedCreateItemParentSelectorComponent);
+    //       }
+    //     } as OnClickMenuItemModel
+    //   });
+
+    //   menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
+    //     shouldPersistOnRouteChange: true,
+    //   })));
+    // });
+
+    // combineLatest([
+    //   this.authorizationService.isAuthorized(FeatureID.CanSubmit),
+    // ]).subscribe(([canSubmit]) => {
+    //   menuList.push({
+    //     id: `drum_customizations_submit_item`,
+    //     active: false,
+    //     visible: canSubmit,
+    //     index: 2,
+    //     model: {
+    //       type: MenuItemType.ONCLICK,
+    //       text: `Submit item to DRUM`,
+    //       function: () => {
+    //         this.modalService.open(ThemedCreateItemParentSelectorComponent);
+    //       }
+    //     } as OnClickMenuItemModel
+    //   });
+    //   menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
+    //     shouldPersistOnRouteChange: true
+    //   })));
+    // });
+    // End UMD Customization
+
     // Read the different Browse-By types from config and add them to the browse menu
-    this.browseService.getBrowseDefinitions()
-      .pipe(getFirstCompletedRemoteData<PaginatedList<BrowseDefinition>>())
-      .subscribe((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
+    combineLatest([this.browseService.getBrowseDefinitions(), this.authorizationService.isAuthorized(FeatureID.CanSubmit)])
+    .subscribe(([browseDefListRD, canSubmit]) => {
         if (browseDefListRD.hasSucceeded) {
           browseDefListRD.payload.page.forEach((browseDef: BrowseDefinition) => {
             menuList.push({
@@ -138,6 +189,21 @@ export class MenuResolver implements Resolve<boolean> {
             }
           );
         }
+
+        menuList.push({
+          id: `drum_customizations_submit_item`,
+          active: false,
+          visible: canSubmit,
+          index: 1,
+          model: {
+            type: MenuItemType.ONCLICK,
+            text: `nav.umd.submit_item.header`,
+            function: () => {
+              this.modalService.open(ThemedCreateItemParentSelectorComponent);
+            }
+          } as OnClickMenuItemModel
+        });
+
         menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
           shouldPersistOnRouteChange: true
         })));
