@@ -68,7 +68,15 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+// UMD Customization
+// Replacing DIST_FOLDER with UMD_WRITEABLE_DIST_FOLDER to enable the
+// /app/dist/browser/assets/config.json file, which is written at startup to
+// be moved to a difference directory, to enable the Angular container to be
+// read-only.
+const UMD_WRITEABLE_DIST_FOLDER=join(process.cwd(), 'dist/writeable');
+
+const appConfig: AppConfig = buildAppConfig(join(UMD_WRITEABLE_DIST_FOLDER, 'assets/config.json'));
+// End UMD Customization
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRU<string, any>;

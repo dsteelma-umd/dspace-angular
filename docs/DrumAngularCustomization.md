@@ -34,3 +34,14 @@ To make it more obvious how to submit items to DRUM, added a
 displayed for logged-in users that have "submit" permission to at least one
 collection. It is essentially a duplicate of the "New | Item" menu
 entry in the administrative sidebar.
+
+## Kubernetes Read-only Filesystem
+
+Modified "server.ts" adding a "UMD_WRITEABLE_DIST_FOLDER" variable to move the
+"config.json" file from `/app/dist/browser/assets/config.json` to
+`/app/dist/writeable/assets/config.json`.
+
+It was necessary to do this, because the Kubernetes configuration enforces a
+"read-only" filesystem in the container, and the "/app/dist/browser/assets/"
+directory has other files in it, making it unsuitable to simply replace with
+an ephemeral volume.
