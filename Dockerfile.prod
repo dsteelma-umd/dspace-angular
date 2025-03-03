@@ -1,0 +1,33 @@
+# This image will be published as dspace/dspace-angular
+# See https://github.com/DSpace/dspace-angular/tree/main/docker for usage details
+
+# When upgrading, this file should be compared to "Dockerfile.dist"
+FROM docker.io/node:18-alpine AS build
+
+# Ensure Python and other build tools are available
+# These are needed to install some node modules, especially on linux/arm64
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+
+ADD . /app/
+RUN npm run build:prod
+
+FROM node:18-alpine
+
+COPY --chown=node:node --from=build /app/dist /app/dist
+COPY --chown=node:node config /app/config
+COPY --chown=node:node docker/dspace-ui.json /app/dspace-ui.json
+
+WORKDIR /app
+USER node
+ENV NODE_ENV=production
+EXPOSE 4000
+
+# UMD Customization
+# Running Node directly, instead of using the "pm2" process manager,
+# because Kubernetes is acting as our process manager
+CMD [ "node", "./dist/server/main.js" ]
+# End UMD Customization
